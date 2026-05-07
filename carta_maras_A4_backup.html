@@ -199,6 +199,23 @@ body {
     size: A4 portrait;
     margin: 0;
   }
+
+  /* FORCE ALL COLORS TO PRINT */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+    -webkit-filter: none !important;
+    filter: none !important;
+  }
+
+  .cover, .chapter, .protagonists, .backcover,
+  .hero-card, .hero-card-center, .cut-item,
+  .combo-card, .burger-card, .ritual-card,
+  .drinks-block, .protein-block, .welcome,
+  .mix-section-header, .ritual-card {
+    background-color: inherit !important;
+  }
 }
 
 /* ─── PORTADA ─────────────────────────────────────────── */
