@@ -1,0 +1,2753 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MARAS — Carta</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════════
+   MARAS CARTA — A4 VERTICAL · DESIGN SYSTEM 95+
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── PRIMARY PALETTE ─────────────────────────────── */
+  --black: #0A0806;
+  --deep: #141008;
+  --charcoal: #1E1810;
+  --rust: #C4380A;
+  --ember: #E05218;
+  --gold: #C9973A;
+  --gold-light: #E8B84B;
+  --cream: #F5EDD8;
+  --parchment: #EDE0C4;
+  --smoke: #8C7B6B;
+  --white: #FAF6EE;
+
+  /* ── TIKI SECTION — Properly defined (no hardcode) ─── */
+  --tiki-dark: #0a1520;
+  --tiki-dark-alt: #0d1f2d;
+  --tiki-teal: #1a5a5a;
+  --tiki-accent: #2dd4bf;
+  --tiki-coral: #f97316;
+  --tiki-rum: #92400e;
+
+  /* ── TYPOGRAPHY SCALE ────────────────────────────── */
+  --font-display: 'Bebas Neue', sans-serif;
+  --font-body: 'Cormorant Garamond', serif;
+  --font-ui: 'DM Sans', sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #111;
+  color: var(--cream);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── A4 PRINT PAGE SIZE ─────────────────────────────── */
+@page {
+  size: A4 portrait;
+  margin: 0;
+}
+
+@page :first {
+  margin: 0;
+}
+
+/* ─── A4 PAGE — Each section is a full A4 page ─── */
+.a4-container > section.cover,
+.a4-container > section.welcome,
+.a4-container > section.chapter,
+.a4-container > section.protagonists,
+.a4-container > section.backcover {
+  width: 210mm;
+  min-height: 297mm;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cover page: full height for dramatic effect */
+.a4-container > section.cover {
+  min-height: 297mm;
+}
+
+/* ─── A4 PAGE WRAPPER — Each page is exactly 210×297mm ─── */
+.a4-page {
+  width: 210mm;
+  height: 297mm;
+  background: var(--black);
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  page-break-inside: avoid;
+}
+
+.a4-page:last-child {
+  page-break-after: auto;
+}
+
+/* Content within A4 page must fit */
+.a4-page .page-content {
+  padding: 15mm;
+}
+
+/* ─── A4 SIMULATION — Digital preview ─────────────────── */
+.a4-container {
+  width: 210mm;
+  margin: 0 auto;
+  background: var(--black);
+  box-shadow: 0 0 60px rgba(0,0,0,.5);
+}
+
+@media screen and (min-width: 210mm) {
+  body { background: #111; }
+  .a4-container {
+    margin: 20px auto;
+    border-radius: 4px;
+  }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .a4-container {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+  .a4-page,
+  .a4-container > section.cover,
+  .a4-container > section.welcome,
+  .a4-container > section.chapter,
+  .a4-container > section.protagonists,
+  .a4-container > section.backcover {
+    width: 100%;
+    height: auto;
+    min-height: auto;
+    background: white;
+    color: black;
+    page-break-after: always;
+    page-break-inside: avoid;
+    position: relative;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+}
+
+.a4-page:last-child {
+  page-break-after: auto;
+}
+
+/* Content within A4 page must fit */
+.a4-page .page-content {
+  padding: 15mm;
+}
+
+/* ─── A4 SIMULATION — Digital preview ─────────────────── */
+.a4-container {
+  width: 210mm;
+  margin: 0 auto;
+  background: var(--black);
+  box-shadow: 0 0 60px rgba(0,0,0,.5);
+}
+
+@media screen and (min-width: 210mm) {
+  body { background: #111; }
+  .a4-container {
+    margin: 20px auto;
+    border-radius: 4px;
+  }
+}
+
+@media print {
+  body { background: white; color: black; }
+  .a4-container {
+    width: 100%;
+    max-width: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+  .a4-page {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    background: white;
+    color: black;
+    page-break-after: always;
+    page-break-inside: avoid;
+  }
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+}
+
+/* ─── PORTADA ─────────────────────────────────────────── */
+.cover {
+  min-height: 100vh;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+.cover-bg-geo {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cover-slash {
+  position: absolute;
+  top: 0;
+  left: -10%;
+  width: 55%;
+  height: 100%;
+  background: var(--rust);
+  clip-path: polygon(0 0, 72% 0, 100% 100%, 28% 100%);
+  opacity: .08;
+}
+
+.cover-slash2 {
+  position: absolute;
+  top: 0;
+  right: -5%;
+  width: 35%;
+  height: 100%;
+  background: var(--gold);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 20% 100%);
+  opacity: .05;
+}
+
+.vineyard-geo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  opacity: .06;
+}
+
+.cover-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.cover-eyebrow {
+  font-family: var(--font-ui);
+  font-size: .65rem;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2.5rem;
+  opacity: .85;
+}
+
+.cover-logo-ring {
+  width: 160px;
+  height: 160px;
+  border: 1px solid rgba(201,151,58,.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.cover-logo-ring::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(201,151,58,.12);
+  border-radius: 50%;
+}
+
+.cover-logo-ring img {
+  width: 100px;
+  filter: invert(1);
+}
+
+.cover-title {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 18vw, 11rem);
+  letter-spacing: .08em;
+  line-height: .9;
+  color: var(--cream);
+  margin-bottom: .8rem;
+}
+
+.cover-subtitle {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1rem, 2.5vw, 1.35rem);
+  letter-spacing: .2em;
+  color: var(--gold);
+  margin-bottom: 3.5rem;
+}
+
+.cover-divider {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+.cover-divider-line {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+
+.cover-divider-line.rev {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.cover-divider-diamond {
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+.cover-tagline {
+  font-family: var(--font-ui);
+  font-size: .7rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  font-weight: 300;
+}
+
+.corner-ornament {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  opacity: .18;
+}
+.corner-ornament.tl { top: 2rem; left: 2rem; }
+.corner-ornament.tr { top: 2rem; right: 2rem; transform: scaleX(-1); }
+.corner-ornament.bl { bottom: 2rem; left: 2rem; transform: scaleY(-1); }
+.corner-ornament.br { bottom: 2rem; right: 2rem; transform: scale(-1); }
+
+.corner-svg {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1;
+  opacity: .3;
+}
+
+/* ─── BIENVENIDA ──────────────────────────────────────── */
+.welcome {
+  min-height: 80vh;
+  background: var(--deep);
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+.welcome-left {
+  flex: 0 0 45%;
+  background: var(--rust);
+  clip-path: polygon(0 0, 85% 0, 100% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 5rem 5rem 4rem;
+  position: relative;
+}
+
+.welcome-left-inner {
+  position: relative;
+  z-index: 2;
+}
+
+.inca-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 1px, transparent 1px, transparent 20px),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 1px, transparent 1px, transparent 20px);
+}
+
+.welcome-label {
+  font-family: var(--font-ui);
+  font-size: .6rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.5);
+  margin-bottom: 1.5rem;
+}
+
+.welcome-heading {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 1.5rem;
+}
+
+.welcome-body {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: rgba(255,255,255,.8);
+  font-weight: 300;
+  max-width: 320px;
+}
+
+.welcome-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 5rem 4rem 5rem 6rem;
+}
+
+.welcome-right-inner {
+  max-width: 420px;
+}
+
+.territory-stats {
+  display: flex;
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.stat {
+  border-top: 1px solid rgba(201,151,58,.3);
+  padding-top: 1.2rem;
+}
+
+.stat-num {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-label {
+  font-family: var(--font-ui);
+  font-size: .6rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-top: .3rem;
+}
+
+/* ─── SHARED CHAPTER STYLES ──────────────────────────── */
+.chapter {
+  background: var(--black);
+  padding: 6rem 6%;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter.dark { background: var(--charcoal); }
+
+.chapter.light {
+  background: var(--parchment);
+  color: var(--black);
+}
+
+.chapter-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  position: relative;
+}
+
+.chapter-number {
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 10vw, 10rem);
+  color: rgba(255,255,255,.03);
+  position: absolute;
+  top: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  user-select: none;
+  line-height: 1;
+}
+
+.chapter-number.dark-num { color: rgba(0,0,0,.05); }
+
+.chapter-eyebrow {
+  font-family: var(--font-ui);
+  font-size: .6rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.chapter-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  letter-spacing: .05em;
+  line-height: 1;
+  color: var(--cream);
+  margin-bottom: .5rem;
+}
+
+.chapter-title.on-light { color: var(--black); }
+
+.chapter-rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.rule-line {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  opacity: .5;
+}
+
+.rule-diamond {
+  width: 5px;
+  height: 5px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ─── HERO GRID — TRIÁNGULO DE ORO ─────────────────── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto 2px;
+}
+
+.hero-top-left { grid-column: 1; grid-row: 1; }
+.hero-center { grid-column: 2; grid-row: 1 / 3; }
+.hero-top-right { grid-column: 3; grid-row: 1; }
+.hero-bottom-left { grid-column: 1; grid-row: 2; }
+.hero-bottom-right { grid-column: 3; grid-row: 2; }
+
+.hero-card {
+  background: var(--charcoal);
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s;
+}
+
+.hero-card:hover { background: #201a12; }
+
+.hero-card-center {
+  background: var(--rust);
+  padding: 3rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero-card-center::before {
+  content: 'ESTRELLA\A DE LA\A BRASA';
+  white-space: pre;
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: var(--font-ui);
+  font-size: .5rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.25);
+  text-align: right;
+  line-height: 2;
+}
+
+.hero-bg-num {
+  position: absolute;
+  font-family: var(--font-display);
+  font-size: 12rem;
+  color: rgba(0,0,0,.15);
+  bottom: -1.5rem;
+  right: -1rem;
+  line-height: 1;
+  user-select: none;
+}
+
+.hero-card-badge {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: .55rem;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,151,58,.35);
+  padding: .35rem .8rem;
+  margin-bottom: 1.2rem;
+}
+
+.hero-card-badge.white {
+  color: var(--white);
+  border-color: rgba(255,255,255,.25);
+}
+
+.hero-card-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  letter-spacing: .06em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: .6rem;
+}
+
+.hero-card-name.large {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+}
+
+.hero-card-weight {
+  font-family: var(--font-ui);
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: .8rem;
+}
+
+.hero-card-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.75);
+  margin-bottom: 1.2rem;
+}
+
+.hero-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+}
+
+.hero-price {
+  font-family: var(--font-body);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.hero-price-center {
+  font-family: var(--font-body);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.hero-pairing {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .75rem;
+  color: rgba(255,255,255,.4);
+  letter-spacing: .05em;
+  margin-top: .5rem;
+}
+
+/* ─── CORTES GRID ───────────────────────────────────── */
+.cuts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.cut-item {
+  background: var(--charcoal);
+  padding: 2rem 1.8rem;
+  border-left: 3px solid transparent;
+  transition: border-color .3s, background .3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.cut-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--rust), transparent);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.cut-item:hover {
+  border-color: var(--rust);
+  background: #1a140c;
+}
+
+.cut-item:hover::after { opacity: 1; }
+
+.cut-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: .08em;
+  color: var(--cream);
+  margin-bottom: .3rem;
+}
+
+.cut-weight {
+  font-family: var(--font-ui);
+  font-size: .58rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: .8rem;
+}
+
+.cut-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .92rem;
+  line-height: 1.6;
+  color: rgba(245,237,216,.65);
+  margin-bottom: 1rem;
+}
+
+.cut-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cut-price {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.cut-price-range {
+  font-family: var(--font-body);
+  font-size: .88rem;
+  color: var(--gold-light);
+}
+
+.cut-pairing {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .7rem;
+  color: var(--smoke);
+}
+
+/* ─── ENTRADAS — LIGHT SECTION ──────────────────────── */
+.starters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2rem 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.starter-item {
+  border-top: 1px solid rgba(0,0,0,.12);
+  padding-top: 1.2rem;
+  position: relative;
+  cursor: pointer;
+  transition: transform .2s, background .2s;
+}
+
+.starter-item:hover {
+  transform: translateX(4px);
+  background: rgba(0,0,0,.02);
+}
+
+.starter-item:hover .starter-dot {
+  transform: scale(1.3);
+}
+
+.starter-dot {
+  width: 7px;
+  height: 7px;
+  background: var(--rust);
+  border-radius: 50%;
+  position: absolute;
+  top: -3.5px;
+  left: 0;
+  transition: transform .2s;
+}
+
+.starter-dot.gold { background: var(--gold); }
+.starter-dot.black { background: var(--black); }
+
+.starter-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: .06em;
+  color: var(--black);
+  margin-bottom: .4rem;
+}
+
+.starter-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .92rem;
+  line-height: 1.6;
+  color: #4a3d2e;
+  margin-bottom: .8rem;
+}
+
+.starter-price {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--rust);
+}
+
+.starter-item.featured {
+  border-top: 2px solid var(--rust);
+}
+
+.starter-item.featured .starter-price {
+  color: var(--black);
+  font-size: 1.05rem;
+}
+
+/* ─── PROTAGONISTAS ────────────────────────────────── */
+.protagonists {
+  background: var(--deep);
+  padding: 6rem 5%;
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+}
+
+.protagonists-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 20% 50%, rgba(196,56,10,.07) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 50%, rgba(201,151,58,.05) 0%, transparent 70%);
+}
+
+.protagonists-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  position: relative;
+  z-index: 2;
+}
+
+.protagonist-card {
+  padding: 3.5rem 3rem;
+  position: relative;
+  overflow: hidden;
+  transition: background .3s, box-shadow .3s;
+}
+
+.protagonist-card:hover {
+  background: #1e1810;
+  box-shadow: 0 0 40px rgba(201,151,58,.08);
+}
+
+.protagonist-card.ensalada {
+  background: #1a140c;
+  border: 1px solid rgba(201,151,58,.15);
+}
+
+.protagonist-card.pisco {
+  background: var(--rust);
+}
+
+.territorial-border {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  right: 1.2rem;
+  bottom: 1.2rem;
+  border: 1px solid rgba(201,151,58,.15);
+  pointer-events: none;
+}
+
+.territorial-border::before,
+.territorial-border::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+}
+
+.territorial-border::before {
+  top: -1px;
+  left: -1px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+}
+
+.territorial-border::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+}
+
+.protagonist-flag {
+  font-family: var(--font-ui);
+  font-size: .55rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.5rem;
+}
+
+.protagonist-flag.white { color: rgba(255,255,255,.6); }
+
+.protagonist-name {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  letter-spacing: .05em;
+  line-height: 1;
+  color: var(--cream);
+  margin-bottom: .8rem;
+}
+
+.protagonist-origin {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .95rem;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+.protagonist-origin.white { color: rgba(255,255,255,.7); }
+
+.protagonist-desc {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: rgba(245,237,216,.8);
+  margin-bottom: 1.5rem;
+  max-width: 320px;
+}
+
+.protagonist-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: .8rem;
+}
+
+.protagonist-price {
+  font-family: var(--font-body);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.protagonist-price.white { color: var(--white); }
+
+.protagonist-price-note {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .75rem;
+  color: var(--smoke);
+}
+
+.vinedo-illustration {
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  width: 100px;
+  height: 100px;
+  opacity: .12;
+}
+
+.pisco-illustration {
+  position: absolute;
+  right: 1.5rem;
+  top: 1.5rem;
+  width: 80px;
+  height: 120px;
+  opacity: .15;
+}
+
+/* ─── OTHER PROTEINS ────────────────────────────────── */
+.other-proteins {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.protein-block {
+  background: var(--charcoal);
+  padding: 2.5rem 1.8rem;
+}
+
+.protein-block.dark-alt { background: #181210; }
+
+.protein-block-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: .08em;
+  color: var(--cream);
+  margin-bottom: .3rem;
+  line-height: 1;
+}
+
+.protein-subtitle {
+  font-family: var(--font-ui);
+  font-size: .55rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: 1.8rem;
+}
+
+.protein-item {
+  padding: 1rem 0;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.protein-item:first-of-type { border-top: none; }
+
+.protein-item-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: .06em;
+  color: var(--cream);
+  margin-bottom: .3rem;
+}
+
+.protein-item-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .85rem;
+  color: rgba(245,237,216,.55);
+  line-height: 1.5;
+  margin-bottom: .5rem;
+}
+
+.protein-item-price {
+  font-family: var(--font-body);
+  font-size: .92rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+/* ─── COMBOS ────────────────────────────────────────── */
+.combos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.combo-card {
+  background: var(--charcoal);
+  padding: 2rem 1.6rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s;
+}
+
+.combo-card:hover { transform: translateY(-2px); }
+
+.combo-card.featured {
+  background: var(--rust);
+  grid-column: span 2;
+}
+
+@media (max-width: 700px) {
+  .combo-card.featured { grid-column: span 1; }
+}
+
+.combo-tier {
+  font-family: var(--font-ui);
+  font-size: .55rem;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .7rem;
+}
+
+.combo-tier.white { color: rgba(255,255,255,.55); }
+
+.combo-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: .06em;
+  color: var(--cream);
+  margin-bottom: .7rem;
+  line-height: 1;
+}
+
+.combo-items {
+  font-family: var(--font-body);
+  font-size: .88rem;
+  line-height: 1.65;
+  color: rgba(245,237,216,.6);
+  font-style: italic;
+  margin-bottom: 1.2rem;
+}
+
+.combo-price {
+  font-family: var(--font-body);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--gold-light);
+}
+
+.combo-price.featured { color: var(--white); font-size: 1.6rem; }
+
+/* ─── HAMBURGUESAS ──────────────────────────────────── */
+.burgers-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.burger-card {
+  background: var(--charcoal);
+  padding: 2rem 1.6rem;
+  border-top: 3px solid transparent;
+  transition: border-color .3s;
+}
+
+.burger-card:hover { border-color: var(--ember); }
+.burger-card.gold-accent { border-top-color: var(--gold); }
+
+.extras-row {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+}
+
+.extra-tag {
+  font-family: var(--font-ui);
+  font-size: .62rem;
+  color: var(--smoke);
+  letter-spacing: .1em;
+}
+
+.extra-tag span {
+  color: var(--gold-light);
+  font-weight: 500;
+  margin-left: .3rem;
+}
+
+/* ─── COCTELERÍA (Tiki + Pisco + Aperitivos) ─────────── */
+.mixes-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.mixes-tabs {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 3px;
+}
+
+.mix-section {
+  flex: 1;
+}
+
+.mix-section-header {
+  background: var(--rust);
+  padding: 1.2rem 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: .1em;
+  color: var(--white);
+}
+
+.mix-section-header.tiki {
+  background: var(--tiki-dark);
+}
+
+.mix-section-header.tiki-alt {
+  background: var(--tiki-teal);
+}
+
+.mix-section-header.tropical {
+  background: rgba(20,80,60,.9);
+}
+
+.mix-section-header.aperitivo {
+  background: #2d2010;
+}
+
+.mix-section-header.digestivo {
+  background: #1a1510;
+}
+
+.mix-section-header.pisco-sec {
+  background: linear-gradient(135deg, #7a2e08, #c4380a);
+}
+
+.mix-items {
+  background: var(--charcoal);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mix-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.05);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.mix-item:last-child { border-bottom: none; }
+
+.mix-name {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: .06em;
+  color: var(--cream);
+  margin-bottom: .15rem;
+}
+
+.mix-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .8rem;
+  color: var(--smoke);
+  line-height: 1.4;
+  max-width: 220px;
+}
+
+.mix-price {
+  font-family: var(--font-body);
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* ─── RITUAL TIKI ────────────────────────────────────── */
+.ritual-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  max-width: 1100px;
+  margin: 0 auto 3px;
+}
+
+.ritual-card {
+  padding: 2.5rem 2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.ritual-card.zombie {
+  background: linear-gradient(135deg, var(--tiki-dark) 0%, var(--tiki-dark-alt) 100%);
+}
+
+.ritual-card.piyi {
+  background: linear-gradient(135deg, #1a1005 0%, #3d2208 100%);
+}
+
+.ritual-label {
+  font-family: var(--font-ui);
+  font-size: .52rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.3);
+  margin-bottom: .8rem;
+}
+
+.ritual-name {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  letter-spacing: .06em;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: .6rem;
+}
+
+.ritual-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .9rem;
+  color: rgba(255,255,255,.65);
+  line-height: 1.5;
+  margin-bottom: 1.2rem;
+}
+
+.ritual-price {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255,255,255,.9);
+}
+
+.tiki-accent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  background: rgba(45,212,191, .12);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+.coral-accent {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 70px;
+  height: 70px;
+  background: rgba(249,115,22, .12);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+
+/* ─── BEBIDAS ───────────────────────────────────────── */
+.drinks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 2px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.drinks-block {
+  background: var(--charcoal);
+  padding: 2rem 1.5rem;
+}
+
+.drinks-block-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  letter-spacing: .1em;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(201,151,58,.2);
+  padding-bottom: .7rem;
+  margin-bottom: 1.2rem;
+}
+
+.drink-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+
+.drink-row:last-child { border-bottom: none; }
+
+.drink-name {
+  font-family: var(--font-body);
+  font-size: .9rem;
+  color: rgba(245,237,216,.8);
+}
+
+.drink-price {
+  font-family: var(--font-body);
+  font-size: .88rem;
+  color: var(--gold-light);
+}
+
+/* ─── CALIENTITOS — Featured section ─────────────────── */
+.calientitos-featured {
+  background: linear-gradient(135deg, var(--charcoal) 0%, #1a1208 100%);
+  border: 1px solid rgba(201,151,58,.2);
+  padding: 2.5rem 2rem;
+  margin-bottom: 2px;
+  position: relative;
+}
+
+.calientitos-featured::before {
+  content: '✦ ELIGE TU CALIENTITO';
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-family: var(--font-ui);
+  font-size: .5rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .6;
+}
+
+.calientitos-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: .08em;
+  color: var(--cream);
+  margin-bottom: .3rem;
+}
+
+.calientitos-subtitle {
+  font-family: var(--font-ui);
+  font-size: .55rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  margin-bottom: 1.5rem;
+}
+
+.calientito-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: .8rem 0;
+  border-top: 1px solid rgba(255,255,255,.05);
+}
+
+.calientito-item:first-of-type { border-top: none; }
+
+.calientito-name {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--cream);
+}
+
+.calientito-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .8rem;
+  color: var(--smoke);
+  margin-left: 1rem;
+}
+
+.calientito-price {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+
+/* ─── TÉRMINOS DE COCCIÓN ─────────────────────────────── */
+.cooking-terms {
+  background: var(--charcoal);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(201,151,58,.2);
+  border-bottom: 1px solid rgba(201,151,58,.2);
+  margin-top: 2px;
+}
+
+.cooking-terms-title {
+  font-family: var(--font-ui);
+  font-size: .55rem;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.2rem;
+}
+
+.cooking-terms-grid {
+  display: flex;
+  justify-content: center;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.cooking-term {
+  text-align: center;
+}
+
+.cooking-term-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  letter-spacing: .1em;
+  color: var(--cream);
+  margin-bottom: .2rem;
+}
+
+.cooking-term-desc {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: .72rem;
+  color: var(--smoke);
+}
+
+/* ─── CONTRAPORTADA ─────────────────────────────────── */
+.backcover {
+  min-height: 70vh;
+  background: var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 5rem 2rem;
+}
+
+.backcover-geo {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 40% at 50% 100%, rgba(196,56,10,.1) 0%, transparent 70%);
+}
+
+.backcover-logo {
+  width: 90px;
+  filter: invert(1) brightness(.75);
+  margin-bottom: 2.5rem;
+  opacity: .6;
+  position: relative;
+  z-index: 2;
+}
+
+.backcover-rule {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(180deg, transparent, var(--gold), transparent);
+  margin-bottom: 2.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+.backcover-phrase {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  color: var(--cream);
+  max-width: 550px;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  opacity: .85;
+  position: relative;
+  z-index: 2;
+}
+
+.backcover-contact {
+  font-family: var(--font-ui);
+  font-size: .6rem;
+  letter-spacing: .4em;
+  text-transform: uppercase;
+  color: var(--smoke);
+  line-height: 2;
+  position: relative;
+  z-index: 2;
+}
+
+.backcover-footer {
+  position: absolute;
+  bottom: 1.5rem;
+  font-family: var(--font-ui);
+  font-size: .52rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: rgba(140,123,107,.4);
+}
+
+/* ─── SECTION SPACER ────────────────────────────────── */
+.spacer {
+  height: 2px;
+  background: var(--rust);
+  opacity: .3;
+}
+
+/* ─── PRINT OPTIMIZATION ──────────────────────────────── */
+.page-break { margin: 0; }
+
+.chapter {
+  page-break-after: always;
+  orphans: 4;
+  widows: 4;
+}
+
+.hero-card,
+.cut-item,
+.protagonist-card,
+.combo-card,
+.burger-card,
+.ritual-card,
+.drinks-block {
+  page-break-inside: avoid;
+}
+
+@media print {
+  .cover { min-height: 100vh; }
+  .welcome { min-height: auto; }
+  .chapter { padding: 4rem 5%; }
+  .corner-ornament { display: none; }
+  body::after { display: none; }
+}
+
+/* ─── RESPONSIVE 800px ──────────────────────────────── */
+@media (max-width: 800px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .hero-center { grid-column: 1; grid-row: auto; }
+  .protagonists-inner { grid-template-columns: 1fr; }
+  .ritual-grid { grid-template-columns: 1fr; }
+  .other-proteins { grid-template-columns: 1fr; }
+  .welcome { flex-direction: column; }
+  .welcome-left { flex: none; clip-path: none; padding: 4rem 2rem; }
+  .mixes-tabs { flex-direction: column; }
+  .welcome-right { padding: 4rem 2rem; }
+}
+
+/* ─── RESPONSIVE 600px ──────────────────────────────── */
+@media (max-width: 600px) {
+  .cuts-grid { grid-template-columns: 1fr; }
+  .starters-grid { grid-template-columns: 1fr; }
+  .drinks-grid { grid-template-columns: 1fr; }
+  .combos-grid { grid-template-columns: 1fr; }
+  .burgers-grid { grid-template-columns: 1fr; }
+  .hero-grid { grid-template-columns: 1fr; }
+  .other-proteins { grid-template-columns: 1fr; }
+  .calientitos-featured { padding: 2rem 1.5rem; }
+
+  .chapter { padding: 4rem 5%; }
+  .chapter-header { margin-bottom: 2.5rem; }
+  .chapter-number { font-size: clamp(4rem, 12vw, 8rem); top: -2rem; }
+  .chapter-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .chapter-rule { margin-top: .8rem; }
+
+  .hero-card { padding: 2rem 1.5rem; }
+  .hero-card-center { min-height: 350px; }
+  .hero-bg-num { font-size: 8rem; }
+
+  .protagonist-card { padding: 2.5rem 1.8rem; }
+  .protagonist-name { font-size: 2.2rem; }
+
+  .ritual-card { min-height: 220px; }
+  .ritual-name { font-size: 2.2rem; }
+
+  .territory-stats { flex-direction: column; gap: 1.5rem; }
+  .stat { border-top: none; border-left: 1px solid rgba(201,151,58,.3); padding-top: 0; padding-left: 1.2rem; }
+
+  .cover-title { font-size: clamp(4rem, 15vw, 7rem); }
+  .cover-logo-ring { width: 130px; height: 130px; }
+  .cover-logo-ring img { width: 80px; }
+}
+
+/* ─── GRAIN OVERLAY ─────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: .4;
+}
+
+@media print {
+  body::after { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="a4-container">
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 1 — PORTADA
+     ═══════════════════════════════════════════════════════ -->
+<section class="cover">
+  <div class="cover-bg-geo">
+    <div class="cover-slash"></div>
+    <div class="cover-slash2"></div>
+
+    <svg class="vineyard-geo" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMax slice" aria-hidden="true" focusable="false">
+      <path d="M0 400 Q180 200 360 280 Q540 360 720 200 Q900 40 1080 160 Q1260 280 1440 200 L1440 400Z" fill="rgba(196,56,10,0.6)"/>
+      <path d="M0 400 Q200 260 400 320 Q600 380 800 260 Q1000 140 1200 240 Q1350 300 1440 260 L1440 400Z" fill="rgba(201,151,58,0.4)"/>
+      <g stroke="rgba(245,237,216,0.3)" stroke-width="1" fill="none">
+        <line x1="100" y1="400" x2="100" y2="300"/>
+        <line x1="200" y1="400" x2="200" y2="290"/>
+        <line x1="300" y1="400" x2="300" y2="310"/>
+        <line x1="400" y1="400" x2="400" y2="320"/>
+        <line x1="500" y1="400" x2="500" y2="280"/>
+        <line x1="600" y1="400" x2="600" y2="300"/>
+        <line x1="700" y1="400" x2="700" y2="250"/>
+        <line x1="800" y1="400" x2="800" y2="270"/>
+        <line x1="900" y1="400" x2="900" y2="240"/>
+        <line x1="1000" y1="400" x2="1000" y2="260"/>
+        <line x1="1100" y1="400" x2="1100" y2="280"/>
+        <line x1="1200" y1="400" x2="1200" y2="260"/>
+        <line x1="1300" y1="400" x2="1300" y2="280"/>
+        <line x1="1400" y1="400" x2="1400" y2="290"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Corner ornaments -->
+  <svg class="corner-ornament tl" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <polyline class="corner-svg" points="0,40 0,0 40,0"/>
+    <polyline class="corner-svg" points="0,60 0,10 10,0 60,0" stroke-width=".5" opacity=".5"/>
+    <circle class="corner-svg" cx="0" cy="0" r="3" fill="rgba(201,151,58,.3)" stroke="none"/>
+  </svg>
+  <svg class="corner-ornament tr" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <polyline class="corner-svg" points="0,40 0,0 40,0"/>
+    <polyline class="corner-svg" points="0,60 0,10 10,0 60,0" stroke-width=".5" opacity=".5"/>
+  </svg>
+  <svg class="corner-ornament bl" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <polyline class="corner-svg" points="0,40 0,0 40,0"/>
+  </svg>
+  <svg class="corner-ornament br" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+    <polyline class="corner-svg" points="0,40 0,0 40,0"/>
+  </svg>
+
+  <div class="cover-content">
+    <div class="cover-eyebrow">Moquegua, Perú · Parrilla de Autor</div>
+
+    <div class="cover-logo-ring">
+      <img src="logo_maras.svg" alt="Maras">
+    </div>
+
+    <div class="cover-title">MARAS</div>
+    <div class="cover-subtitle">Steakhouse &amp; Coctelería</div>
+
+    <div class="cover-divider">
+      <div class="cover-divider-line"></div>
+      <div class="cover-divider-diamond"></div>
+      <div class="cover-divider-line rev"></div>
+    </div>
+
+    <div class="cover-tagline">Fuego ancestral · Territorio vivo · Sabor eterno</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 2 — BIENVENIDA TERRITORIAL
+     ═══════════════════════════════════════════════════════ -->
+<section class="welcome">
+  <div class="welcome-left">
+    <div class="inca-pattern"></div>
+    <div class="welcome-left-inner">
+      <div class="welcome-label">Nuestra Identidad</div>
+      <div class="welcome-heading">DONDE<br>EL FUEGO<br>HABLA</div>
+      <div class="welcome-body">
+        Una tradición de excelencia gastronómica. Fundado en 2024, Maras nació de la pasión por la parrilla y los sabores auténticos. Cada corte lleva nuestra firma. Cada copa, nuestro compromiso con el territorio.
+      </div>
+    </div>
+  </div>
+
+  <div class="welcome-right">
+    <div class="welcome-right-inner">
+      <div class="welcome-label" style="color:var(--gold)">Selección de Autor</div>
+      <div style="font-family:var(--font-body);font-size:1.1rem;line-height:1.9;color:rgba(245,237,216,.75);max-width:380px;">
+        Nuestro chef ejecutivo selecciona personalmente los mejores cortes de carne. Nuestros mixólogos crean cócteles que nacen del territorio y se complementan con cada plato. La brasa no perdona y nosotros tampoco.
+      </div>
+      <div class="territory-stats">
+        <div class="stat">
+          <div class="stat-num">2024</div>
+          <div class="stat-label">Año fundación<br>Maras</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1400</div>
+          <div class="stat-label">Metros sobre<br>el nivel del mar</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">300</div>
+          <div class="stat-label">Días de sol<br>al año</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 3 — TRIÁNGULO DE ORO
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">CORTES</div>
+    <div class="chapter-eyebrow">El Clímax de la Brasa</div>
+    <div class="chapter-title">CORTES DE RES</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <!-- Top Left — T-Bone -->
+    <div class="hero-top-left hero-card">
+      <div class="hero-card-badge">Punto de Honor</div>
+      <div class="hero-card-weight">500 g</div>
+      <div class="hero-card-name">T-BONE</div>
+      <div class="hero-card-desc">Dualidad perfecta: filete etéreo junto a un lomo intenso. Dos mundos, un corte, una decisión imposible.</div>
+      <div class="hero-price-row">
+        <div class="hero-price">69.95</div>
+      </div>
+      <div class="hero-pairing">Marida con: Pisco Sour Clásico</div>
+    </div>
+
+    <!-- Center — Lomo Fino (ESTRELLA) -->
+    <div class="hero-center hero-card-center">
+      <div class="hero-bg-num">250</div>
+      <div style="position:relative;z-index:2;">
+        <div class="hero-card-badge white">La Estrella · Selección Chef</div>
+        <div class="hero-card-weight" style="color:rgba(255,255,255,.6)">250 g de excelencia</div>
+        <div class="hero-card-name large">LOMO<br>FINO</div>
+        <div class="hero-card-desc" style="color:rgba(255,255,255,.8)">Seda que se funde. Terso, delicado, íntimamente tierno. El corte que susurra lo que otros gritan.</div>
+        <div class="hero-price-row">
+          <div class="hero-price-center">44.95</div>
+        </div>
+        <div class="hero-pairing" style="color:rgba(255,255,255,.5)">Maridaje perfecto: Chilcano VIP o Pisco Sour Clásico</div>
+      </div>
+    </div>
+
+    <!-- Top Right — Tomahawk -->
+    <div class="hero-top-right hero-card">
+      <div class="hero-card-badge" style="border-color:rgba(201,151,58,.5)">Insignia Maras</div>
+      <div class="hero-card-weight">900 g · Con hueso</div>
+      <div class="hero-card-name">TOMAHAWK</div>
+      <div class="hero-card-desc">Monolito de sabor. Impone respeto antes del primer bocado. Para quien no negocia con la grandeza.</div>
+      <div class="hero-price-row">
+        <div class="hero-price" style="font-size:1.5rem;">99.95</div>
+      </div>
+      <div class="hero-pairing">Marida con: Zombie o Hurricane</div>
+    </div>
+
+    <!-- Bottom Left — Cowboy -->
+    <div class="hero-bottom-left hero-card">
+      <div class="hero-card-weight">500 g con hueso</div>
+      <div class="hero-card-name" style="font-size:1.8rem;">COWBOY</div>
+      <div class="hero-card-desc" style="font-size:.9rem;">Rusticidad noble. Hueso que abraza una carne profunda y satisfactoriamente jugosa.</div>
+      <div class="hero-price-row">
+        <div class="hero-price">67.95</div>
+      </div>
+      <div class="hero-pairing">Marida con: Negroni</div>
+    </div>
+
+    <!-- Bottom Right — Entraña Fina -->
+    <div class="hero-bottom-right hero-card">
+      <div class="hero-card-weight">250 / 500 g</div>
+      <div class="hero-card-name" style="font-size:1.8rem;">ENTRAÑA FINA</div>
+      <div class="hero-card-desc" style="font-size:.9rem;">Íntimamente tierna, profunda en sabor. La favorita de los entendidos en parrilla.</div>
+      <div class="hero-price-row">
+        <div class="hero-price">37.95 <span style="font-size:.8rem;opacity:.6;">/ 73.95</span></div>
+      </div>
+      <div class="hero-pairing">Marida con: Old Fashioned</div>
+    </div>
+  </div>
+
+  <!-- Términos de Cocción -->
+  <div class="cooking-terms" style="margin-top:3px;">
+    <div class="cooking-terms-title">Términos de Cocción</div>
+    <div class="cooking-terms-grid">
+      <div class="cooking-term">
+        <div class="cooking-term-name">AZUL</div>
+        <div class="cooking-term-desc">Cocción apenas iniciada</div>
+      </div>
+      <div class="cooking-term">
+        <div class="cooking-term-name">MEDIO</div>
+        <div class="cooking-term-desc">Tierno y jugoso con centro rosado</div>
+      </div>
+      <div class="cooking-term">
+        <div class="cooking-term-name">TRES CUARTOS</div>
+        <div class="cooking-term-desc">Cocción completa, leve tono rosado</div>
+      </div>
+      <div class="cooking-term">
+        <div class="cooking-term-name">COCIDO</div>
+        <div class="cooking-term-desc">Sin rastro de rojo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 4 — CORTES ADICIONALES
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter" style="padding-top:5rem;">
+  <div class="cuts-grid">
+    <div class="cut-item">
+      <div class="cut-name">PICAÑA</div>
+      <div class="cut-weight">250 g / 500 g</div>
+      <div class="cut-desc">Capa de grasa que sella los jugos en cada vuelta de la brasa. Intensa, vibrante, pura memoria gustativa.</div>
+      <div class="cut-footer">
+        <div class="cut-price-range">44.95 <span style="opacity:.5;font-size:.8rem;">/ 92.95</span></div>
+        <div class="cut-pairing">Marida: Moquegua Dry</div>
+      </div>
+    </div>
+
+    <div class="cut-item">
+      <div class="cut-name">BIFE ANCHO</div>
+      <div class="cut-weight">250 g / 500 g</div>
+      <div class="cut-desc">Exuberancia bien repartida. Venas de grasa que se convierten en sabor al contacto con la brasa.</div>
+      <div class="cut-footer">
+        <div class="cut-price-range">42.95 <span style="opacity:.5;font-size:.8rem;">/ 79.95</span></div>
+        <div class="cut-pairing">Marida: Chilcano Clásico</div>
+      </div>
+    </div>
+
+    <div class="cut-item">
+      <div class="cut-name">BIFE ANGOSTO</div>
+      <div class="cut-weight">250 g / 500 g</div>
+      <div class="cut-desc">Elegancia en textura uniforme. Corte que convence en la sutileza, no en el estruendo.</div>
+      <div class="cut-footer">
+        <div class="cut-price-range">39.95 <span style="opacity:.5;font-size:.8rem;">/ 76.95</span></div>
+        <div class="cut-pairing">Marida: Pisco Punch</div>
+      </div>
+    </div>
+
+    <div class="cut-item">
+      <div class="cut-name">ASADO DE TIRA</div>
+      <div class="cut-weight">300 g / 500 g</div>
+      <div class="cut-desc">Costillas con hueso y ahumado que viaja al fondo de la memoria. Lo más honesto de la parrilla.</div>
+      <div class="cut-footer">
+        <div class="cut-price-range">38.95 <span style="opacity:.5;font-size:.8rem;">/ 73.95</span></div>
+        <div class="cut-pairing">Marida: Cerveza Artesanal</div>
+      </div>
+    </div>
+
+    <div class="cut-item">
+      <div class="cut-name">CHULETA DE RES</div>
+      <div class="cut-weight">Con hueso · Papas + ensalada</div>
+      <div class="cut-desc">La clásica redimida. Perfectamente asada, sin pretensiones, con el alma de la parrilla bien puesta.</div>
+      <div class="cut-footer">
+        <div class="cut-price">29.95</div>
+        <div class="cut-pairing">Marida: Coca Cola 1L</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 5 — PROTAGONISTAS MOQUEGUANOS
+     ═══════════════════════════════════════════════════════ -->
+<section class="protagonists">
+  <div class="protagonists-bg"></div>
+  <div style="text-align:center;margin-bottom:3.5rem;position:relative;z-index:2;">
+    <div class="chapter-eyebrow">Orgullo del Territorio</div>
+    <div class="chapter-title">PROTAGONISTAS MOQUEGUANOS</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <div class="protagonists-inner">
+    <!-- Ensalada Moqueguana -->
+    <div class="protagonist-card ensalada">
+      <div class="territorial-border"></div>
+
+      <svg class="vinedo-illustration" viewBox="0 0 120 120" aria-hidden="true" focusable="false">
+        <circle cx="60" cy="30" r="25" fill="var(--gold)" opacity=".8"/>
+        <ellipse cx="60" cy="30" rx="12" ry="20" fill="var(--black)" opacity=".5"/>
+        <line x1="60" y1="55" x2="60" y2="110" stroke="var(--rust)" stroke-width="3"/>
+        <line x1="40" y1="75" x2="60" y2="65" stroke="var(--rust)" stroke-width="2"/>
+        <line x1="80" y1="80" x2="60" y2="70" stroke="var(--rust)" stroke-width="2"/>
+        <circle cx="40" cy="75" r="8" fill="var(--gold)" opacity=".6"/>
+        <circle cx="80" cy="80" r="8" fill="var(--gold)" opacity=".6"/>
+        <circle cx="30" cy="90" r="6" fill="var(--gold)" opacity=".4"/>
+        <circle cx="90" cy="95" r="6" fill="var(--gold)" opacity=".4"/>
+      </svg>
+
+      <div class="protagonist-flag">✦ Obra de Arte Regional · Ensaladas</div>
+      <div class="protagonist-name">ENSALADA<br>MOQUEGUANA</div>
+      <div class="protagonist-origin">Palta fuerte · Verduras andinas · Vinagreta del valle</div>
+      <div class="protagonist-desc">
+        La tierra en un plato. Palta del valle, tomate de estación, cebolla dulce y verduras cocidas. La vinagreta que no eclipsa, sino que eleva.
+      </div>
+      <div class="protagonist-price-row">
+        <div class="protagonist-price">19.95</div>
+        <div class="protagonist-price-note">/ porción generosa</div>
+      </div>
+    </div>
+
+    <!-- Pisco Sour -->
+    <div class="protagonist-card pisco">
+      <svg class="pisco-illustration" viewBox="0 0 100 140" aria-hidden="true" focusable="false">
+        <ellipse cx="50" cy="30" rx="35" ry="25" fill="rgba(255,255,255,.3)"/>
+        <ellipse cx="50" cy="30" rx="35" ry="25" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/>
+        <path d="M15 30 Q25 80 40 90 L40 130" stroke="rgba(255,255,255,.4)" stroke-width="2" fill="none"/>
+        <path d="M85 30 Q75 80 60 90 L60 130" stroke="rgba(255,255,255,.4)" stroke-width="2" fill="none"/>
+        <line x1="35" y1="130" x2="65" y2="130" stroke="rgba(255,255,255,.4)" stroke-width="2"/>
+        <circle cx="50" cy="30" r="8" fill="rgba(255,255,255,.2)"/>
+        <circle cx="38" cy="22" r="3" fill="rgba(255,255,255,.25)"/>
+        <circle cx="50" cy="18" r="4" fill="rgba(255,255,255,.2)"/>
+        <circle cx="62" cy="22" r="3" fill="rgba(255,255,255,.25)"/>
+        <circle cx="44" cy="15" r="2" fill="rgba(255,255,255,.15)"/>
+        <circle cx="56" cy="14" r="2" fill="rgba(255,255,255,.15)"/>
+      </svg>
+
+      <div class="protagonist-flag white">✦ Clásico Peruano · Moquegua es Pisco</div>
+      <div class="protagonist-name" style="color:var(--white);">PISCO<br>SOUR</div>
+      <div class="protagonist-origin white">Pisco del valle · Zumo de limón fresco · Espuma de clara</div>
+      <div class="protagonist-desc">
+        El rito que abre la mesa. Cuatro ingredientes, una declaración. Un brindis antes del primer corte.
+      </div>
+      <div class="protagonist-price-row">
+        <div class="protagonist-price white">21.95 <span style="font-size:.85rem;opacity:.7;margin-left:.5rem;">/ VIP 27.95</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 6 — ENTRADAS + GUARNICIONES
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter light">
+  <div class="chapter-header">
+    <div class="chapter-number dark-num">ENTRADAS</div>
+    <div class="chapter-eyebrow" style="color:var(--rust)">Para despertar los sentidos</div>
+    <div class="chapter-title on-light">ENTRADAS & GUARNICIONES</div>
+    <div class="chapter-rule">
+      <div class="rule-line" style="background:var(--rust)"></div>
+      <div class="rule-diamond" style="background:var(--rust)"></div>
+      <div class="rule-line" style="background:var(--rust)"></div>
+    </div>
+  </div>
+
+  <div class="starters-grid">
+    <div class="starter-item">
+      <div class="starter-dot"></div>
+      <div class="starter-name">CHINCHULINES</div>
+      <div class="starter-desc">Crotúdo por fuera, sedoso por dentro. El ahumado de leña que no se olvida. La parrilla en su versión más honesta.</div>
+      <div class="starter-price">32.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot"></div>
+      <div class="starter-name">MOLLEJA DE RES</div>
+      <div class="starter-desc">Tierna por dentro, crocante por fuera. Un toque cítrico y ahumado que eleva cada mordisco.</div>
+      <div class="starter-price">32.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot"></div>
+      <div class="starter-name">RIÑONES</div>
+      <div class="starter-desc">Jugosos, con la gracia del vino y el calor de la brasa. Piezas que los entendidos piden primero.</div>
+      <div class="starter-price">25.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot"></div>
+      <div class="starter-name">MORCILLAS</div>
+      <div class="starter-desc">Tres unidades que sangran sabor. Embutido de sangre que humea, dulzón, con el umami que solo el fuego revela.</div>
+      <div class="starter-price">25.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot"></div>
+      <div class="starter-name">CHORIZO</div>
+      <div class="starter-desc">Tres crujidos que estallan en especias. Ají panca, comino y la mano del parrillero que no perdona.</div>
+      <div class="starter-price">25.95</div>
+    </div>
+
+    <div class="starter-item featured">
+      <div class="starter-dot" style="background:var(--rust)"></div>
+      <div class="starter-name">EL DÚO PERFECTO</div>
+      <div class="starter-desc">Chorizo y morcilla. Crujiente y denso. Dos texturas que se buscan y se encuentran en cada mordisco.</div>
+      <div class="starter-price">30.95</div>
+    </div>
+  </div>
+
+  <!-- Guarniciones -->
+  <div style="margin-top:3.5rem;text-align:center;margin-bottom:1.8rem;">
+    <div class="chapter-eyebrow" style="color:var(--rust)">Complementos de Tierra</div>
+    <div style="font-family:var(--font-display);font-size:1.8rem;letter-spacing:.08em;color:var(--black);">GUARNICIONES</div>
+  </div>
+
+  <div class="starters-grid" style="max-width:600px;">
+    <div class="starter-item">
+      <div class="starter-dot" style="background:var(--black)"></div>
+      <div class="starter-name">PAPAS AL GRILL</div>
+      <div class="starter-desc">Harinosas por dentro, con la costra que only la brasa da. El acompañamiento que absorbe el jugo de la carne.</div>
+      <div class="starter-price">10.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot" style="background:var(--black)"></div>
+      <div class="starter-name">PAPAS NATIVAS</div>
+      <div class="starter-desc">Aromatizadas con especias andinas, salteadas hasta que el sabor no tiene escape posible.</div>
+      <div class="starter-price">15.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot" style="background:var(--black)"></div>
+      <div class="starter-name">PORCIÓN DE PAN</div>
+      <div class="starter-desc">Con el toque especial Maras. El pan que no es solo acompañamiento: es el primer vehículo del sabor.</div>
+      <div class="starter-price">10.95</div>
+    </div>
+
+    <div class="starter-item">
+      <div class="starter-dot" style="background:var(--black)"></div>
+      <div class="starter-name">ENSALADA CLÁSICA</div>
+      <div class="starter-desc">Tomate y verduras cocidas. Ligera y refrescante. El contrapunto verde a la intensidad de la brasa.</div>
+      <div class="starter-price">15.95</div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 7 — OTRAS PROTEÍNAS
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter dark">
+  <div class="chapter-header">
+    <div class="chapter-eyebrow">Otras Proteínas Nobles</div>
+    <div class="chapter-title">DEL CAMPO A LA BRASA</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <div class="other-proteins">
+    <!-- Cordero -->
+    <div class="protein-block">
+      <div class="protein-block-title">CORDERO<br>CARA NEGRA</div>
+      <div class="protein-subtitle">On The Grill</div>
+      <div class="protein-item">
+        <div class="protein-item-name">LOMO DE CORDERO</div>
+        <div class="protein-item-desc">300 g de pura suculencia. En término medio o 3/4, alcanza su máxima expresión de textura y sabor profundo.</div>
+        <div class="protein-item-price">36.95</div>
+      </div>
+      <div class="protein-item">
+        <div class="protein-item-name">CORDERO MARAS</div>
+        <div class="protein-item-desc">600 g. Tomahawk de cordero jugoso y tierno. Recomendado en término 1/2 o 3/4 para su esplendor total.</div>
+        <div class="protein-item-price">64.95</div>
+      </div>
+    </div>
+
+    <!-- Cerdo -->
+    <div class="protein-block dark-alt">
+      <div class="protein-block-title">LO MEJOR<br>DEL CERDO</div>
+      <div class="protein-subtitle">On The Grill</div>
+      <div class="protein-item">
+        <div class="protein-item-name">CHULETA DE LOMO</div>
+        <div class="protein-item-desc">Tierno lomo de cerdo, jugoso y perfectamente calibrado para la intensidad de nuestra parrilla.</div>
+        <div class="protein-item-price">29.95</div>
+      </div>
+      <div class="protein-item">
+        <div class="protein-item-name">COSTILLAS AHUMADAS</div>
+        <div class="protein-item-desc">Sabor ahumado profundo con textura suave que se desprende del hueso con solo pedirlo.</div>
+        <div class="protein-item-price">34.95</div>
+      </div>
+    </div>
+
+    <!-- Pollo -->
+    <div class="protein-block">
+      <div class="protein-block-title">POLLO</div>
+      <div class="protein-subtitle">On The Grill</div>
+      <div class="protein-item">
+        <div class="protein-item-name">FILETE DE POLLO</div>
+        <div class="protein-item-desc">Pechuga a la parrilla. Con un toque de limón, una explosión de frescura que limpia el paladar.</div>
+        <div class="protein-item-price">24.95</div>
+      </div>
+      <div style="margin-top:2rem;">
+        <div class="protein-block-title" style="font-size:1.4rem;">ENSALADA PERSONAL</div>
+        <div class="protein-subtitle">Porción Individual</div>
+        <div class="protein-item">
+          <div class="protein-item-desc">Ideal para una porción individual. La opción verde para quienes la brasa comparte mesa con lo ligero.</div>
+          <div class="protein-item-price">8.95</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 8 — COMBOS PARRILLEROS
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-number">COMBOS</div>
+    <div class="chapter-eyebrow">Para Compartir el Ritual</div>
+    <div class="chapter-title">COMBOS PARRILLEROS</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <div class="combos-grid">
+    <div class="combo-card">
+      <div class="combo-tier">I · Iniciación</div>
+      <div class="combo-name">CLÁSICO</div>
+      <div class="combo-items">La puerta de entrada a la brasa. Tres proteínas generosas, un plato que no pide permiso para impresionar.</div>
+      <div class="combo-price">69.95</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-tier">II · Expansión</div>
+      <div class="combo-name">MEDIANO</div>
+      <div class="combo-items">Para los que ya saben que la parrilla es conversación. Más volumen, más profundidad, más brasa.</div>
+      <div class="combo-price">99.95</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-tier">III · Elevación</div>
+      <div class="combo-name">ESPECIAL</div>
+      <div class="combo-items">El corte de cordero que susurra. El bife que domina. La tanda que define una cena entera.</div>
+      <div class="combo-price">129.95</div>
+    </div>
+
+    <div class="combo-card">
+      <div class="combo-tier">IV · Celebración</div>
+      <div class="combo-name">FAMILIAR</div>
+      <div class="combo-items">La mesa que no quiere escolher. Cinco cortes, una mesa, muchas historias entrelazadas con humo de leña.</div>
+      <div class="combo-price">179.95</div>
+    </div>
+
+    <div class="combo-card featured">
+      <div class="combo-tier white">✦ La Cumbre · Experiencia Definitiva</div>
+      <div class="combo-name" style="font-size:2.2rem;">COMBO MARAS</div>
+      <div class="combo-items" style="color:rgba(255,255,255,.75);font-size:.95rem;">El pacto con la brasa. Seis cortes selectos, leña ardiendo, y la promesa de que nadie se va con hambre.</div>
+      <div class="combo-price featured">199.95</div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 9 — HAMBURGUESAS
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter dark">
+  <div class="chapter-header">
+    <div class="chapter-eyebrow">Creaciones de la Brasa</div>
+    <div class="chapter-title">HAMBURGUESAS</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <div class="burgers-grid">
+    <div class="burger-card">
+      <div class="cut-weight">150 g de carne selecta</div>
+      <div class="cut-name">CLÁSICA</div>
+      <div class="cut-desc">Papas nativas crujientes, tomate fresco y cebolla morada. La simplicidad que no pide permiso para impresionar.</div>
+      <div class="cut-price">19.95</div>
+    </div>
+
+    <div class="burger-card">
+      <div class="cut-weight">150 g · Medallón de Cordero</div>
+      <div class="cut-name">HAMBURGUESA DE CORDERO</div>
+      <div class="cut-desc">El cordero de los Andes en formato palma. Denso, graso, con la jugosidad que solo este corte entrega.</div>
+      <div class="cut-price">19.95</div>
+    </div>
+
+    <div class="burger-card gold-accent">
+      <div class="cut-weight">150 g con abundante cheddar</div>
+      <div class="cut-name">CHEESE BURGER</div>
+      <div class="cut-desc">Cheddar que se estira, cebolla caramelizada que endulza, papas nativas que crujen. La indulgencia justificada.</div>
+      <div class="cut-price" style="color:var(--gold-light)">24.95</div>
+    </div>
+  </div>
+
+  <div class="extras-row" style="max-width:1200px;margin:2px auto 0;">
+    <div style="background:var(--charcoal);padding:1.2rem 1.5rem;flex:1;display:flex;gap:2rem;flex-wrap:wrap;">
+      <div class="extra-tag">Adicionales:</div>
+      <div class="extra-tag">Huevo <span>+4.95</span></div>
+      <div class="extra-tag">Tocino <span>+4.95</span></div>
+      <div class="extra-tag">Chorizo <span>+5.95</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 10 — TIKI BAR
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter" style="background:var(--tiki-dark);padding-bottom:4rem;">
+  <div class="chapter-header">
+    <div class="chapter-eyebrow" style="color:var(--tiki-accent);">Ritual Inmersivo</div>
+    <div class="chapter-title" style="color:var(--white);">TIKI BAR</div>
+    <div class="chapter-rule">
+      <div class="rule-line" style="background:var(--tiki-accent);"></div>
+      <div class="rule-diamond" style="background:var(--tiki-accent);"></div>
+      <div class="rule-line" style="background:var(--tiki-accent);"></div>
+    </div>
+  </div>
+
+  <!-- Rituales destacados -->
+  <div class="ritual-grid">
+    <div class="ritual-card zombie">
+      <div class="tiki-accent"></div>
+      <div class="ritual-label">Espíritu del Tiki Bar · Fuerza Máxima</div>
+      <div class="ritual-name">ZOMBIE</div>
+      <div class="ritual-desc">Agridulce, compleja, afrutada y con el poderío del ron que no se disculpa. Solo uno por noche.</div>
+      <div class="ritual-price">25.95</div>
+    </div>
+
+    <div class="ritual-card piyi">
+      <div class="coral-accent"></div>
+      <div class="ritual-label">Reserva del Tiki · Especiado y Dulce</div>
+      <div class="ritual-name">PI - YI</div>
+      <div class="ritual-desc">Jugos tropicales especiados y miel en un equilibrio que desafía toda descripción. Fantástico no le hace justicia.</div>
+      <div class="ritual-price">25.95</div>
+    </div>
+  </div>
+
+  <!-- Resto Tiki -->
+  <div class="mixes-layout" style="margin-top:3px;">
+    <div class="mixes-tabs">
+      <div class="mix-section">
+        <div class="mix-section-header tiki">TIKI · Resto</div>
+        <div class="mix-items">
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">MAI TAI</div>
+              <div class="mix-desc">Amargo, dulce y almendrado. La tripleta que hace la diferencia.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">HURRICANE</div>
+              <div class="mix-desc">Blend de ron, afrutado y agridulce con fruta de la pasión.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">PAINKILLER</div>
+              <div class="mix-desc">Refrescante y especiado con toques tropicales y ácidos.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">JUNGLE BIRD</div>
+              <div class="mix-desc">Tropical, ligeramente amargo. Imprescindible con ron.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mix-section">
+        <div class="mix-section-header tropical">TROPICALES</div>
+        <div class="mix-items">
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">MOJITOS</div>
+              <div class="mix-desc">Herbal, dulce y cítrico. El clásico bien puesto.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">PIÑA COLADA</div>
+              <div class="mix-desc">Trilogía tropical y refrescante en un vaso.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">BLUE HAWAIIAN</div>
+              <div class="mix-desc">Vibrante color azul, sabor amigable y fresco.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">BIENVENIDOS A LA JUNGLA</div>
+              <div class="mix-desc">Exótico con variantes frutales y blend de rones.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">MARTINI HPNOTIQ</div>
+              <div class="mix-desc">Azul fruta, dulce con ligero toque ácido.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 11 — MOQUEGUA ES PISCO + COCTELERÍA
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter dark" style="background:var(--charcoal);">
+  <div class="chapter-header">
+    <div class="chapter-eyebrow">El Alma Líquida del Territorio</div>
+    <div class="chapter-title">COCTELERÍA</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <div class="mixes-layout">
+    <div class="mixes-tabs">
+      <!-- Pisco Moquegua -->
+      <div class="mix-section">
+        <div class="mix-section-header pisco-sec">MOQUEGUA ES PISCO</div>
+        <div class="mix-items">
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">PISCO SOUR CLÁSICO</div>
+              <div class="mix-desc">El rito nacional. Pisco del valle, zumo de limón fresco, espuma de clara, bitters. Cuatro ingredientes.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">PISCO SOUR VIP</div>
+              <div class="mix-desc">La versión de autor. Pisco premium, equilibrio impecable.</div>
+            </div>
+            <div class="mix-price">28.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">CHILCANO CLÁSICO</div>
+              <div class="mix-desc">La mejor manera de disfrutar una cepa pisquera.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">CHILCANO VIP</div>
+              <div class="mix-desc">Pisco selecto, jengibre, limón y el brio del territorio.</div>
+            </div>
+            <div class="mix-price">28.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">PISCO PUNCH</div>
+              <div class="mix-desc">Pisco vibrante con jugos tropicales de uvas Italia.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">ALGARROBINA</div>
+              <div class="mix-desc">Cremoso, amargo y dulce. Para quienes buscan lo diferente.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">DAMASCO SOUR</div>
+              <div class="mix-desc">Equilibrado y agridulce con base de licor de damasco.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">MOQUEGUA DRY</div>
+              <div class="mix-desc">Agridulce, refrescante con toques macerados del valle.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Aperitivos -->
+      <div class="mix-section">
+        <div class="mix-section-header aperitivo">APERITIVOS</div>
+        <div class="mix-items">
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">APEROL SPRITZ</div>
+              <div class="mix-desc">Sutil, elegante, de moda. Para comenzar en otro nivel.</div>
+            </div>
+            <div class="mix-price">25.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">NEGRONI</div>
+              <div class="mix-desc">El aperitivo por excelencia. Dulce y amargo en armonía.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">LONG ISLAND ICE TEA</div>
+              <div class="mix-desc">Mezcla de destilados blancos con sabor dulce y amargo.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">NEW YORK SOUR</div>
+              <div class="mix-desc">Americano cítrico y tinto. Acidez y dulzura en equilibrio.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">OLD FASHIONED</div>
+              <div class="mix-desc">Para los amantes del whisky con toques dulces y especiados.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">CLAVO OXIDADO</div>
+              <div class="mix-desc">Compleja combinación con notas de vainilla y miel.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">COSMOPOLITAN</div>
+              <div class="mix-desc">Elegante entre los modernos. Refrescante y sofisticado.</div>
+            </div>
+            <div class="mix-price">20.95</div>
+          </div>
+        </div>
+
+        <div class="mix-section-header digestivo" style="margin-top:3px;">DIGESTIVOS</div>
+        <div class="mix-items">
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">TINTO MARAS</div>
+              <div class="mix-desc">Vino fortificado con notas cítricas, perfumado con naranjas.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">GODFATHER</div>
+              <div class="mix-desc">Suave, aterciopelado y almendrado. Para disfrutar con calma.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">MOSCOW MULE</div>
+              <div class="mix-desc">Perfil complejo con jengibre que define cada sorbo.</div>
+            </div>
+            <div class="mix-price">25.95</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">GIN TONIC</div>
+              <div class="mix-desc">Beefater 22.00 · Pink 25.00 — Quina y cítricos.</div>
+            </div>
+            <div class="mix-price">22.00+</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">ORGASMO</div>
+              <div class="mix-desc">Clásico 22.00 · Múltiple 25.00 — Combinación de placeres.</div>
+            </div>
+            <div class="mix-price">22.00+</div>
+          </div>
+          <div class="mix-item">
+            <div>
+              <div class="mix-name">HANKY PANKY</div>
+              <div class="mix-desc">Mágica mezcla dulce, amarga y especiada.</div>
+            </div>
+            <div class="mix-price">22.95</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 12 — BEBIDAS
+     ═══════════════════════════════════════════════════════ -->
+<section class="chapter">
+  <div class="chapter-header">
+    <div class="chapter-eyebrow">Para toda la mesa</div>
+    <div class="chapter-title">BEBIDAS & CALIENTITOS</div>
+    <div class="chapter-rule">
+      <div class="rule-line"></div>
+      <div class="rule-diamond"></div>
+      <div class="rule-line"></div>
+    </div>
+  </div>
+
+  <!-- CALIENTITOS — Featured prominently as per user request -->
+  <div class="calientitos-featured">
+    <div class="calientitos-title">CALIENTITOS</div>
+    <div class="calientitos-subtitle">Para quienes prefieren bebidas tibias</div>
+    <div class="calientito-item">
+      <div>
+        <span class="calientito-name">CALIENTITO MARAS</span>
+        <span class="calientito-desc">— herbáceo, agridulce, con memoria de hoja de coca</span>
+      </div>
+      <div class="calientito-price">20.95</div>
+    </div>
+    <div class="calientito-item">
+      <div>
+        <span class="calientito-name">VINO CALIENTE</span>
+        <span class="calientito-desc">— tinto del valle con clavo, canela y naranja</span>
+      </div>
+      <div class="calientito-price">20.95</div>
+    </div>
+    <div class="calientito-item">
+      <div>
+        <span class="calientito-name">TÉ PITEADO</span>
+        <span class="calientito-desc">— kion fresco, miel de abeja y el calor que abre el pecho</span>
+      </div>
+      <div class="calientito-price">15.95</div>
+    </div>
+  </div>
+
+  <div class="drinks-grid" style="margin-top:3px;">
+    <div class="drinks-block">
+      <div class="drinks-block-title">CERVEZAS NACIONALES</div>
+      <div class="drink-row">
+        <div class="drink-name">Cuzqueña Trigo · Negra · Dorada</div>
+        <div class="drink-price">10.95</div>
+      </div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">La insignia del Perú. Tres expresiones, una misma pasión por la buena mesa.</div>
+    </div>
+
+    <div class="drinks-block">
+      <div class="drinks-block-title">CERVEZAS IMPORTADAS</div>
+      <div class="drink-row"><div class="drink-name">Heineken · Países Bajos</div><div class="drink-price">13.95</div></div>
+      <div class="drink-row"><div class="drink-name">Corona · México</div><div class="drink-price">13.95</div></div>
+      <div class="drink-row"><div class="drink-name">Stella Artois · Bélgica</div><div class="drink-price">13.95</div></div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">Frescas, heladas, universales.</div>
+    </div>
+
+    <div class="drinks-block">
+      <div class="drinks-block-title">ARTESANALES · 7 VIDAS</div>
+      <div class="drink-row"><div class="drink-name">Honey Ale · Americana Red · Irish Stout</div><div class="drink-price">18.95</div></div>
+      <div class="drink-row"><div class="drink-name">Quinua · Pale Ale · Maíz Morado</div><div class="drink-price">18.95</div></div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">Cerveza de autor. Lúpulo local, espíritu moqueguano.</div>
+    </div>
+
+    <div class="drinks-block">
+      <div class="drinks-block-title">GASEOSAS</div>
+      <div class="drink-row"><div class="drink-name">Coca Cola / Inca Cola · ½ lt</div><div class="drink-price">5.95</div></div>
+      <div class="drink-row"><div class="drink-name">Coca Cola / Inca Cola · 1 lt</div><div class="drink-price">10.95</div></div>
+      <div class="drink-row"><div class="drink-name">Kola Escocesa · ½ lt</div><div class="drink-price">7.95</div></div>
+      <div class="drink-row"><div class="drink-name">Agua Mineral</div><div class="drink-price">4.95</div></div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">El contrapunto freso entre fuegos.</div>
+    </div>
+
+    <div class="drinks-block">
+      <div class="drinks-block-title">MOCKTAILS SIN ALCOHOL</div>
+      <div class="drink-row"><div class="drink-name">Piña colada · Mojito · Algarrobina · Primavera</div><div class="drink-price">15.95</div></div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">Para quienes conduzcan la noche sin prisa.</div>
+    </div>
+
+    <div class="drinks-block">
+      <div class="drinks-block-title">FROZEN · FRUTAS DE ESTACIÓN</div>
+      <div class="drink-row"><div class="drink-name">Clásica · Maracuyá · Frutos Rojos · Andina</div><div class="drink-price">20.95</div></div>
+      <div class="drink-row"><div class="drink-name">½ lt</div><div class="drink-price">12.95</div></div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">Hielo procesado, fruta fresca. El frío que limpia el paladar entre fuegos.</div>
+    </div>
+
+    <div class="drinks-block">
+      <div class="drinks-block-title">INFUSIONES</div>
+      <div class="drink-row"><div class="drink-name">Té Canela y Clavo · Manzanilla</div><div class="drink-price">5.95</div></div>
+      <div class="drink-row"><div class="drink-name">Anís · Hierba Luisa</div><div class="drink-price">5.95</div></div>
+      <div style="font-family:var(--font-body);font-style:italic;font-size:.78rem;color:var(--smoke);margin-top:.5rem;">El closing correcto. Suave, digestivo, reconfortante.</div>
+    </div>
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<!-- ═══════════════════════════════════════════════════════
+     PÁGINA 13 — CONTRAPORTADA
+     ═══════════════════════════════════════════════════════ -->
+<section class="backcover">
+  <div class="backcover-geo"></div>
+
+  <!-- Corner ornaments -->
+  <svg style="position:absolute;top:2rem;left:2rem;width:80px;height:80px;opacity:.2;" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <polyline fill="none" stroke="var(--gold)" stroke-width="1" points="0,25 0,0 25,0"/>
+    <polyline fill="none" stroke="var(--gold)" stroke-width=".5" points="0,35 0,8 8,0 35,0" opacity=".5"/>
+  </svg>
+  <svg style="position:absolute;top:2rem;right:2rem;width:80px;height:80px;opacity:.2;transform:scaleX(-1);" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <polyline fill="none" stroke="var(--gold)" stroke-width="1" points="0,25 0,0 25,0"/>
+  </svg>
+  <svg style="position:absolute;bottom:2rem;left:2rem;width:80px;height:80px;opacity:.2;transform:scaleY(-1);" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <polyline fill="none" stroke="var(--gold)" stroke-width="1" points="0,25 0,0 25,0"/>
+  </svg>
+  <svg style="position:absolute;bottom:2rem;right:2rem;width:80px;height:80px;opacity:.2;transform:scale(-1);" viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <polyline fill="none" stroke="var(--gold)" stroke-width="1" points="0,25 0,0 25,0"/>
+  </svg>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;">
+    <img class="backcover-logo" src="logo_maras.svg" alt="Maras">
+    <div class="backcover-rule"></div>
+    <div class="backcover-phrase">
+      "En Maras, la brasa no cocina la carne.<br>La brasa <em>despierta</em> lo que la tierra puso dentro."
+    </div>
+    <div class="cover-divider">
+      <div class="cover-divider-line"></div>
+      <div class="cover-divider-diamond"></div>
+      <div class="cover-divider-line rev"></div>
+    </div>
+
+    <div class="backcover-contact">
+      Moquegua, Perú<br>
+      Steakhouse & Coctelería<br>
+      @maras.steakhouse
+    </div>
+  </div>
+  <div class="backcover-footer">Maras Steakhouse · Carta 2025 · Todos los precios incluyen IGV</div>
+</section>
+
+</div><!-- /a4-container -->
+
+</body>
+</html>
